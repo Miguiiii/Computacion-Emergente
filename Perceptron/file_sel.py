@@ -2,7 +2,7 @@ import tkinter as tk
 import csv
 from tkinter import filedialog, messagebox
 
-class file:
+class File:
 
     def __init__(self):
         pass
@@ -27,4 +27,4 @@ class file:
 
 
 if __name__=="__main__":
-    file().get_file()
+    File().get_file()
