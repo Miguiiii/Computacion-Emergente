@@ -1,5 +1,6 @@
 import math as m
 import file_sel as f
+from grapher import Graph
 
 class Adeline:
     def __init__(self):
@@ -15,7 +16,7 @@ class Adeline:
         self.preddict()
         self.get_errors()
         self.mostrar_res()
-        
+        self.show_graphs()
         while True:
             ans=input("Desea entrenar el modelo? (y/n)")
             if ans.lower()=="n":
@@ -24,6 +25,7 @@ class Adeline:
                 self.train()
                 print("Despues de ser entrenado, el modelo resultante fue:")
                 self.mostrar_res()
+                self.show_graphs()
 
     def mostrar_res(self):
         print(f"Pesos: {self.pesos}")
@@ -107,7 +109,7 @@ class Adeline:
 
     def preddict(self):
         for i in range(len(self.model[0])): #realiza las predicciones con los pesos y el bias actuales
-            yt=sum([self.model[j][i]*self.pesos[j] for j in range(self.nw)])+self.bias
+            yt=sum([self.model[j][i]*self.pesos[j] for j in range(len(self.pesos))])+self.bias
             yt=self.activate(yt)
             self.pred.append(yt)
 
@@ -125,12 +127,16 @@ class Adeline:
             if self.mse < self.obj_err:
                 break
 
-            for i in len(self.err): #update los pesos y el bias
+            for i in range(len(self.err)): #update los pesos y el bias
                 self.pesos=list(map(lambda w, x: w+self.tasa*self.err[i]*x[i],self.pesos, self.model[:-1]))
                 self.bias+=self.tasa*sum(self.err)
         
     def show_graphs(self):
-        cmap1 = 2
+        cmap1 = [str(m.fabs(1-self.activate(x))) for x in self.expect]
+        cmap2 = [str(m.fabs(1-x)) for x in self.pred]
+        cmap3 = [(1.0, 0.0, 0.0) if m.fabs(x)>=1 else (m.fabs(x), 1.0-m.fabs(x), 0.0) for x in self.err]
+        g=Graph(self.model[0], self.model[1], cmap1, cmap2, cmap3)
+        g.mostrar()
 
 if __name__=="__main__":
     a = Adeline()
