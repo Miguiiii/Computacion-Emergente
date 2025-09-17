@@ -35,7 +35,7 @@ class Adeline:
     def _ask_model_data(self):
         self.model=f.File().get_file()
         self.expect=self.model.pop()
-        self.nw:int=len(self.model)-1 #el numero de pesos
+        self.nw:int=len(self.model) #el numero de pesos
         print(f"El Adeline tendrá {self.nw} inputs y 1 neurona")
         for i in range(self.nw):
             while True:
@@ -130,7 +130,7 @@ class Adeline:
                 self.bias+=self.tasa*sum(self.err)
         
     def show_graphs(self):
-        pass
+        cmap1 = 2
 
 if __name__=="__main__":
     a = Adeline()
