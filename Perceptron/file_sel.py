@@ -1,6 +1,6 @@
 import tkinter as tk
 import csv
-from tkinter import filedialog, messagebox
+from tkinter import filedialog
 
 class File:
 

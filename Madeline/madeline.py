@@ -2,7 +2,7 @@ import numpy as np
 
 class Neural_Network:
 
-	def __init__(self, n_in:int=1, n_out:int=1, depth:int=1, width:int=1, activation:function=lambda x: 1 if x>0 else 0):
+	def __init__(self, n_in:int=1, n_out:int=1, depth:int=1, width:int=1, activation:callable=lambda x: 1 if x>0 else 0):
 		self.input_size=n_in
 		self.output_size=n_out
 		self.hidden_size=width
